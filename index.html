@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quanti km per bruciare una pizza · SUPER-ALE</title>
+<meta name="description" content="Quanti chilometri di corsa servono davvero per bruciare una pizza, e quanti te ne fa credere il tuo orologio.">
+<meta property="og:title" content="Quanti km ti servono per bruciare una pizza? · SUPER-ALE">
+<meta property="og:description" content="E quanti te ne fa credere il tuo orologio.">
+<meta property="og:image" content="img/ale.jpg">
+<link rel="icon" href="img/icona_bs.png">
+<style>
+@font-face{font-family:"Montserrat";font-weight:900;src:url(font/Montserrat-900-normal.ttf) format("truetype");font-display:swap}
+@font-face{font-family:"Newsreader";font-weight:400;src:url(font/Newsreader-400-normal.ttf) format("truetype");font-display:swap}
+@font-face{font-family:"Newsreader";font-weight:600;src:url(font/Newsreader-600-normal.ttf) format("truetype");font-display:swap}
+:root{--bg:#050A18;--panel:#0B1430;--panel2:#101C40;--line:rgba(255,255,255,.12);--text:#FFFFFF;--soft:#C9D2E6;--muted:#8793B0;--accent:#9FB6EA;--rouge:#9E1B2B;--ink:#00225A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Newsreader",Georgia,serif;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:90px}
+a{color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.h{font-family:"Montserrat",Arial,sans-serif;font-weight:900;letter-spacing:-.02em;line-height:1.05;text-transform:lowercase}
+.kick{font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+b{font-weight:600;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--rouge);color:#fff;text-decoration:none;font-family:"Montserrat",Arial,sans-serif;font-weight:900;font-size:14px;letter-spacing:.04em;padding:16px 26px;border-radius:999px;text-transform:uppercase;border:0;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px);background:#b8283a}
+
+.hero{padding:56px 0 10px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(44,66,168,.35),transparent 70%)}
+.hero .logo{height:70px;margin:0 auto 34px;display:block}
+.hero h1{font-size:clamp(40px,8vw,78px);margin:14px auto 18px}
+.hero p.lead{font-size:20px;max-width:44ch;margin:0 auto;color:var(--soft)}
+.firma{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px}
+.firma img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid var(--line)}
+.firma div{text-align:left;font-size:15px;color:var(--soft);line-height:1.35}
+.firma b{display:block;font-size:16px}
+
+section{padding:46px 0}
+h2.h{font-size:clamp(28px,4.6vw,42px);margin:10px 0 14px}
+.sub{font-size:18px;color:var(--soft)}
+
+/* scheda del calcolatore */
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:28px}
+.tabs{display:flex;gap:8px;background:rgba(255,255,255,.05);padding:6px;border-radius:999px;margin-bottom:26px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--soft);font-family:"Montserrat";font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:#fff;color:var(--ink)}
+.campo{margin-bottom:20px}
+.campo label{display:block;font-family:"Montserrat";font-weight:900;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.campo .aiuto{font-size:15px;color:var(--muted);margin-top:6px}
+.campo input{width:100%;background:var(--bg);border:1px solid var(--line);color:#fff;border-radius:14px;padding:14px 16px;font-family:"Newsreader";font-size:20px}
+.campo input:focus{outline:2px solid var(--accent);border-color:transparent}
+.scelte{display:flex;flex-wrap:wrap;gap:8px}
+.scelte button{border:1px solid var(--line);background:var(--bg);color:var(--soft);border-radius:12px;padding:11px 14px;font-family:"Newsreader";font-size:16px;cursor:pointer;text-align:left}
+.scelte button.on{background:var(--ink);border-color:var(--accent);color:#fff}
+.due{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.due{grid-template-columns:1fr}.calc{padding:20px}.etich{font-size:9.5px;letter-spacing:0}.cat{font-size:12px}}
+.errore{color:#F2A3AC;font-size:16px;margin-top:6px;min-height:1.2em}
+
+/* risultato */
+.ris{display:none;margin-top:26px;border-top:1px solid var(--line);padding-top:26px;text-align:center}
+.ris.on{display:block}
+.ris .num{font-family:"Montserrat";font-weight:900;font-size:clamp(64px,14vw,110px);line-height:1}
+.ris .unita{color:var(--muted);font-size:16px;margin-top:4px}
+.ris .forbice{color:var(--soft);font-size:17px;margin-top:8px}
+.cat{display:inline-block;margin-top:18px;font-family:"Montserrat";font-weight:900;font-size:14px;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px;border-radius:10px}
+.scala{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:26px 0 8px}
+.scala div{height:12px;border-radius:6px}
+.scala .pin{position:absolute;top:-9px;width:4px;height:30px;background:#fff;border-radius:2px;transform:translateX(-50%);box-shadow:0 0 0 3px var(--bg)}
+.etich{display:grid;grid-template-columns:repeat(5,1fr);font-size:12px;color:var(--muted);font-family:"Montserrat";font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.frasi{max-width:52ch;margin:22px auto 0;font-size:18px;color:var(--soft)}
+.frasi p+p{margin-top:10px}
+.eta{margin-top:20px;background:rgba(255,255,255,.05);border-radius:16px;padding:16px;font-size:17px}
+.eta b{font-family:"Montserrat";font-weight:900;font-size:24px}
+
+.disc{font-size:15px;color:var(--muted);margin-top:22px;text-align:left;background:rgba(255,255,255,.04);border-radius:14px;padding:14px 16px}
+
+
+/* prima e dopo */
+.casi{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-top:26px;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.casi::-webkit-scrollbar{display:none}
+.nastro{display:flex;gap:16px;width:max-content}
+.caso{flex:none;border-radius:18px;overflow:hidden}
+.caso img{height:300px;width:auto;display:block;background:#0B1430}
+@media (max-width:560px){.caso img{height:240px}}
+.legale{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* cta */
+.cta{background:linear-gradient(135deg,#0B1428,#00225A);border:1px solid var(--line);border-radius:26px;padding:36px;display:grid;grid-template-columns:1fr 200px;gap:28px;align-items:center}
+.cta img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px}
+.cta p{color:var(--soft);font-size:18px;margin:10px 0 22px}
+@media (max-width:640px){.cta{grid-template-columns:1fr}.cta img{max-width:220px}}
+
+.passi{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.passo{border-top:2px solid var(--accent);padding-top:14px}
+.passo .n{font-family:"Montserrat";font-weight:900;font-size:34px;line-height:1}
+.passo h3{font-family:"Montserrat";font-weight:900;font-size:16px;margin:10px 0 4px}
+.passo p{font-size:16px;color:var(--soft)}
+@media (max-width:640px){.passi{grid-template-columns:1fr}}
+
+.fonti{font-size:14px;color:var(--muted)}
+.fonti li{margin:6px 0 6px 18px}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:30px 0 20px}
+
+.barra-call{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:center;gap:18px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(5,10,24,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.barra-call span{font-weight:600;font-size:17px}
+.barra-call .btn{padding:12px 22px;font-size:13px;white-space:nowrap}
+@media (max-width:560px){.barra-call{gap:10px;justify-content:space-between}.barra-call span{font-size:14.5px;line-height:1.25}.barra-call .btn{padding:11px 14px;font-size:11px}}
+
+.cibi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cibi button{border:1px solid var(--line);background:var(--bg);color:var(--soft);border-radius:14px;padding:12px 10px;font-family:"Newsreader";font-size:16px;cursor:pointer;line-height:1.25}
+.cibi button small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.cibi button.on{background:var(--ink);border-color:var(--accent);color:#fff}
+@media (max-width:560px){.cibi{grid-template-columns:1fr 1fr}}
+.confronto{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.confronto>div{background:rgba(255,255,255,.05);border-radius:16px;padding:16px}
+.confronto .v{font-family:"Montserrat";font-weight:900;font-size:34px;line-height:1.1}
+.confronto .l{font-size:15px;color:var(--muted)}
+.confronto .orologio .v{color:#F2A3AC}
+.mancano{margin-top:14px;font-size:18px}
+.nota{margin-top:22px;text-align:left;background:linear-gradient(135deg,rgba(0,34,90,.6),rgba(11,20,48,.6));border:1px solid var(--line);border-radius:16px;padding:18px;font-size:17px;color:var(--soft)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="img/logo_b.png" alt="SUPER-ALE">
+    <div class="kick">calcolatore gratuito</div>
+    <h1 class="h">quanti km ti servono per bruciare una pizza?</h1>
+    <p class="lead">E quanti te ne fa credere il tuo orologio. Scegli cosa hai mangiato, metti il tuo peso e scopri <b>quanta corsa vale davvero</b>.</p>
+    <div class="firma"><img src="img/ale_avatar.jpg" alt=""><div><b>Alessandro Passalacqua</b>Founder di SUPER-ALE</div></div>
+  </div>
+</header>
+
+<main class="wrap">
+<section>
+  <div class="calc">
+    <div class="campo">
+      <label>Cosa hai mangiato?</label>
+      <div class="cibi" id="cibi">
+        <button data-k="816" class="on">Pizza margherita<small>da pizzeria, circa 800 kcal</small></button>
+        <button data-k="952">Pizza + birra media<small>circa 950 kcal</small></button>
+        <button data-k="136">Birra media<small>0,4 litri, circa 140 kcal</small></button>
+        <button data-k="139">Lattina di Coca-Cola<small>330 ml, circa 140 kcal</small></button>
+        <button data-k="206">Cornetto da bar<small>circa 200 kcal</small></button>
+        <button data-k="altro">Altro<small>metti tu le calorie</small></button>
+      </div>
+      <div id="campo-altro" hidden style="margin-top:12px">
+        <input id="kcal" type="number" inputmode="numeric" min="20" max="5000" placeholder="calorie, es. 450 (le trovi sull'etichetta)">
+      </div>
+    </div>
+    <div class="due">
+      <div class="campo">
+        <label for="peso">Il tuo peso (kg)</label>
+        <input id="peso" type="number" inputmode="decimal" min="35" max="200" placeholder="es. 75">
+      </div>
+      <div class="campo">
+        <label for="ritmo">Il tuo ritmo (min/km)</label>
+        <input id="ritmo" type="text" inputmode="decimal" placeholder="es. 6:00 (facoltativo)">
+        <div class="aiuto">Serve solo per dirti quanto tempo ci metteresti.</div>
+      </div>
+    </div>
+
+    <div class="errore" id="errore"></div>
+    <button class="btn" id="calcola" style="width:100%;margin-top:6px">Calcola</button>
+
+    <div class="ris" id="ris">
+      <div class="kick">per bruciarla ti servono circa</div>
+      <div class="num" id="num">—</div>
+      <div class="unita">chilometri di corsa</div>
+      <div class="forbice" id="forbice"></div>
+      <div class="confronto">
+        <div><div class="v" id="km-veri">—</div><div class="l">quelli che servono davvero</div></div>
+        <div class="orologio"><div class="v" id="km-orologio">—</div><div class="l">dopo quanti l'orologio te la darebbe già per bruciata</div></div>
+      </div>
+      <div class="mancano" id="mancano"></div>
+      <div class="nota"><b>Prima che tu vada a correre per "pagare" la pizza:</b> il cibo non va guadagnato. Questo numero serve a capire le proporzioni. Una pizza vale parecchi chilometri, ed è per questo che il dimagrimento si decide soprattutto a tavola, mentre la corsa ti serve per il fiato, la salute e la testa. Se correndo pensi di "rimediare" a quello che mangi, rischi di non vedere mai il risultato.</div>
+      <div class="disc"><b>È una stima, non una misura.</b> Correre costa più o meno <b>1 caloria per ogni chilo di peso e ogni chilometro</b>, quasi a qualsiasi ritmo, ma ognuno è un po' diverso: per questo ti diamo una forbice. Il confronto con l'orologio usa l'errore medio trovato in uno studio sulla corsa all'aperto, dove Garmin e Apple Watch segnavano più calorie di quelle bruciate di oltre il 20%: il tuo orologio può sbagliare di più o di meno. Le calorie dei cibi sono medie: una pizza può variare molto per peso e condimento.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">perché l'orologio sbaglia</div>
+  <h2 class="h">il battito lo misura, le calorie le indovina</h2>
+  <p class="sub">Una revisione del 2025 su 56 studi ha trovato che uno degli smartwatch più usati sbaglia il battito in media del 4%, ma le calorie di circa il 28%, in tutte le attività provate. E in uno studio sulla corsa all'aperto Garmin e Apple Watch segnavano più calorie di quelle bruciate davvero, di oltre il 20%.</p>
+  <div class="passi">
+    <div class="passo"><div class="n">01</div><h3>usalo per il ritmo</h3><p>Battito, passi, ritmo e sonno sono dati affidabili: usali per vedere se nel tempo migliori.</p></div>
+    <div class="passo"><div class="n">02</div><h3>non per mangiare</h3><p>Le calorie bruciate non sono un permesso: le calorie da mangiare le decidono il piatto e la bilancia.</p></div>
+    <div class="passo"><div class="n">03</div><h3>guarda la bilancia</h3><p>Se in tre settimane il peso medio non scende, il deficit non c'è, qualunque cosa dica l'orologio.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">i risultati</div>
+  <h2 class="h">cosa succede quando ti alleni e mangi con un piano</h2>
+  <p class="sub">Alcuni dei ragazzi che seguiamo con il team SUPER-ALE.</p>
+  <div class="casi"><div class="nastro" id="nastro"></div></div>
+  <p class="legale">Risultati individuali, ottenuti con allenamento, alimentazione e costanza. Non sono garantiti e dipendono dal punto di partenza di ognuno.</p>
+</section>
+
+<section>
+  <div class="cta">
+    <div>
+      <div class="kick">coaching 1:1</div>
+      <h2 class="h">vuoi un piano che non dipenda dall'orologio?</h2>
+      <p>Con il team SUPER-ALE costruiamo allenamento e alimentazione sul tuo punto di partenza e sulla tua settimana, e li aggiustiamo insieme guardando i risultati veri.</p>
+      <a class="btn" href="https://formcoaching.super-ale.com/?utm_source=pizza">Prenota la tua call gratuita</a>
+    </div>
+    <img src="img/ale.jpg" alt="Alessandro Passalacqua">
+  </div>
+</section>
+
+<section>
+  <div class="kick">da dove vengono i numeri</div>
+  <ul class="fonti">
+    <li>Costo della corsa, circa 1 kcal per kg per km e quasi indipendente dalla velocità: Mayhew JL, <i>Oxygen cost and energy expenditure of running in trained runners</i>, Br J Sports Med, 1977.</li>
+    <li>Orologi e calorie nella corsa: Le S et al., <i>Validity of three smartwatches in estimating energy expenditure during outdoor walking and running</i>, Front Physiol, 2022.</li>
+    <li>Revisione sugli smartwatch: Choe JP, Kang M, <i>Apple watch accuracy in monitoring health metrics: a systematic review and meta-analysis</i>, Physiol Meas, 2025.</li>
+    <li>Calorie dei cibi: CREA, Tabelle di composizione degli alimenti (pizza con pomodoro e mozzarella, 255 kcal/100 g, pizza da circa 320 g); INRAN (birra chiara, cornetto); etichetta Coca-Cola.</li>
+  </ul>
+</section>
+</main>
+
+<footer>Creata da Alessandro Passalacqua · Founder di SUPER-ALE</footer>
+
+<div class="barra-call">
+  <span>Vuoi un piano che funzioni senza contare sull'orologio?</span>
+  <a class="btn" href="https://formcoaching.super-ale.com/?utm_source=pizza">Prenota la call gratuita</a>
+</div>
+
+<script>
+const ERR_OROLOGIO = 0.22;      // sovrastima media nella corsa (Le et al. 2022, Garmin Fenix 6)
+let kcalScelte = 816;
+document.querySelectorAll("#cibi button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("#cibi button").forEach(x => x.classList.toggle("on", x === b));
+  document.getElementById("campo-altro").hidden = b.dataset.k !== "altro";
+  kcalScelte = b.dataset.k;
+});
+const num = id => parseFloat(String(document.getElementById(id).value).replace(",", "."));
+const fmt = x => x.toFixed(1).replace(".", ",");
+function ritmo() {
+  const v = String(document.getElementById("ritmo").value).trim();
+  if (!v) return null;
+  const m = v.match(/^(\d{1,2})(?:[:.,'](\d{1,2}))?$/);
+  if (!m) return NaN;
+  return parseInt(m[1]) + (m[2] ? parseInt(m[2].padEnd(2, "0")) / 60 : 0);
+}
+document.getElementById("calcola").onclick = () => {
+  const err = document.getElementById("errore"); err.textContent = "";
+  const kcal = kcalScelte === "altro" ? num("kcal") : parseFloat(kcalScelte);
+  const peso = num("peso");
+  if (!(kcal >= 20 && kcal <= 5000)) { err.textContent = "Inserisci le calorie del cibo (tra 20 e 5000)."; return; }
+  if (!(peso >= 35 && peso <= 200)) { err.textContent = "Inserisci il tuo peso in chili."; return; }
+  const r = ritmo();
+  if (Number.isNaN(r) || (r !== null && !(r >= 3 && r <= 12))) { err.textContent = "Scrivi il ritmo come minuti:secondi al km, es. 6:00."; return; }
+  const km = kcal / peso;                       // ~1 kcal per kg per km
+  const kmOro = km / (1 + ERR_OROLOGIO);
+  document.getElementById("num").textContent = fmt(km);
+  let forb = `probabilmente tra ${fmt(km * 0.9)} e ${fmt(km * 1.1)} km`;
+  if (r) { const min = Math.round(km * r); forb += ` · circa ${min >= 60 ? Math.floor(min/60) + " h " + (min%60) + " min" : min + " minuti"} al tuo ritmo`; }
+  document.getElementById("forbice").textContent = forb;
+  document.getElementById("km-veri").textContent = fmt(km) + " km";
+  document.getElementById("km-orologio").textContent = fmt(kmOro) + " km";
+  document.getElementById("mancano").innerHTML = `Se ti fidi dell'orologio, ti fermeresti con <b>${fmt(km - kmOro)} km</b> ancora da fare.`;
+  const box = document.getElementById("ris"); box.classList.add("on"); box.scrollIntoView({behavior:"smooth", block:"start"});
+};
+// prima e dopo (le stesse foto della guida integratori), che scorrono da sole
+const CASI = [["dubai",900,593],["spogliatoio",900,679],["tatuaggi",900,494],["biondo2",900,581],["spiaggia",900,689]];
+(function(){
+  const html = CASI.map(([f,w,h]) => `<div class="caso"><img src="img/casi/${f}.jpg" width="${w}" height="${h}" decoding="async" alt="Prima e dopo"></div>`).join("");
+  const n = document.getElementById("nastro"); n.innerHTML = html + html;
+  const box = document.querySelector(".casi"); let x = 0, fermo = false, t;
+  const pausa = ms => { fermo = true; clearTimeout(t); x = box.scrollLeft; t = setTimeout(() => fermo = false, ms); };
+  box.addEventListener("touchstart", () => pausa(99999), {passive:true});
+  box.addEventListener("touchend", () => pausa(2500), {passive:true});
+  box.addEventListener("mouseenter", () => pausa(99999));
+  box.addEventListener("mouseleave", () => pausa(300));
+  let prima = performance.now();
+  (function passo(ora){
+    const dt = Math.min(64, ora - prima); prima = ora;
+    const meta = box.scrollWidth / 2;
+    if (!fermo && meta > box.clientWidth) { x += 0.8 * dt / 16.7; if (x >= meta) x -= meta; box.scrollLeft = x; }
+    requestAnimationFrame(passo);
+  })(prima);
+})();
+</script>
+</body>
+</html>
