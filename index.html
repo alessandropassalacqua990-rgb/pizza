@@ -264,7 +264,7 @@ document.getElementById("calcola").onclick = () => {
   const box = document.getElementById("ris"); box.classList.add("on"); box.scrollIntoView({behavior:"smooth", block:"start"});
 };
 // prima e dopo (le stesse foto della guida integratori), che scorrono da sole
-const CASI = [["tatuato",900,600],["dubai",900,593],["elisa_fronte",900,1025],["spogliatoio",900,679],["federica_fronte",900,610],["ragazzo_specchio",900,474],["tatuaggi",900,494],["elisa_schiena",900,1025],["biondo2",900,581],["federica_profilo",900,610],["spiaggia",900,689]];
+const CASI = [["tatuato",900,600],["dubai",900,593],["elisa_fronte",900,1025],["spogliatoio",900,679],["federica_fronte",900,610],["tatuaggi",900,494],["elisa_schiena",900,1025],["biondo2",900,581],["spiaggia",900,689]];
 (function(){
   const html = CASI.map(([f,w,h]) => `<div class="caso"><img src="img/casi/${f}.jpg" width="${w}" height="${h}" decoding="async" alt="Prima e dopo"></div>`).join("");
   const n = document.getElementById("nastro"); n.innerHTML = html + html;
